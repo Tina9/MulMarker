@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <title>Upload new File</title>
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+		align-items: flex-start;
+    }
+    .left-column {
+        width: 25%;
+        border: 2px ridge;
+        padding: 10px;
+        background-color: #F0F0F0;
+        border-radius: 10px;
+    }
+    .right-column {
+        width: 70%;
+    }
+    .submit-button {
+        font-size: 20px;
+    }
+    #chat-box {
+        padding: 10px;
+        height: 300px;
+        overflow-y: auto;
+        margin-bottom: 50px; /* Increased the bottom margin */
+    }
+    #message-input {
+        width: 70%;
+        border-radius: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 50px;
+    }
+    .bot-message,
+    .user-message {
+		text-align: right;
+        clear: both;
+        width: 70%;
+		margin-bottom: 10px;
+    }
+    .bot-message {
+        text-align: left;
+    }
+    .user-message {
+        text-align: right;
+    }
+    .user-message > span {
+        color: #fff;
+        background-color: seagreen;
+        border-radius: 20px;
+        padding: 10px;
+        display: inline-block;
+    }
+    .bot-message > span {
+        color: #333;
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        padding: 10px;
+        display: inline-block;
+    }
+	#send-button {
+	    font-size: 16px;
+	    padding: 10px;
+	    color: #fff;
+	    background-color: seagreen;
+	    border: none;
+	    border-radius: 20px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	}
+	
+	#send-button:hover {
+	    background-color: #0056b3;
+	}
+
+</style>
+
+</head>
+<body>
+    <h1>Survival Analysis</h1>
+    <div class="container">
+        <div class="left-column">
+            <form method="post" enctype="multipart/form-data">
+				<p>Enter Analysis Name:<br></p>
+				<input type="text" name="analysisName" required placeholder="Test"><br>
+                <p>Upload Chosen Genes (.txt):</p>
+                <input type="file" name="genes_file" placeholder="Gene">
+                <p>Upload Information of Clinical Patients (.txt):</p>
+                <input type="file" name="clinical_info_file" placeholder="Clinical">
+                <p>Upload RNA Expression Data (.txt):</p>
+                <input type="file" name="rna_info_file" placeholder="RNA">
+                <p>Enter Seed Number:</p>
+                <input type="number" name="seed" placeholder=12>
+                <p>Enter Ratio:</p>
+                <input type="number" name="ratio" placeholder=0.5 min="0" max="1" step="0.01">
+            	<br><br><br>
+			    <input type="submit" value="Perform Analysis" style = "font-size:18px">
+            </form>
+        </div>
+		<div class="right-column">
+		    <h2>Requirements</h2>
+			<p style="text-align: justify; font-size: 18px; margin-right: 8%;">    
+				MulMarker is a comprehensive framework to identify multigenic prognostic signature for cancer outcome prediction and patients stratification. It employs univariate Cox regression analysis to screen candidate genes and use multivariate Cox regression analysis to build the risk model. To use MulMarker, required files and parameters are listed as follows:<br><br>            1) Analysis Name (string): Input the name of your analysis, such as "LungCancer". <br><br>            2) Chosen Genes (.txt): A txt file with Candidate genes, one gene per line. Genes in the file must be included in Expression Data, such as "MulMarker/test/chosen_genes.txt". <br><br>            3) Clinical Patients (.txt): A txt file with clinical information. There are three columns: "PATIENT_ID", "OS_STATUS" and "OS_TIME". Patients in the file should be the same as the patients in Expression Data, such as "MulMarker/test/clinical_info.txt". <br><br>            4) Expression Data (.txt): A txt file with RNA expression data. Each row corresponds to a gene and each column corresponds to a patient, such as "MulMarker/test/rna_info.txt". <br><br>            5) Seed Number (number): Patients will be randomly divided into train group and test group when training the model. This parameter is the seed number of random grouping. We recommend you to adjust the paramneter to get a better risk model, such as "12". <br><br>            6) Ratio (number): The ratio of train group and test group, such as "0.5". <br><br>                   For more details, please visit the website: 
+				<a href="https://github.com/Tina9/RiskModel/tree/main/test">MulMarker</a>. 
+<br><br>For more details about the model and the result, you can ask questions below.<br><br>
+			</p>
+			<h2>Questions Here</h2>
+    		<div id="chat-box">
+        	<!-- Chat messages will be added here dynamically -->
+    		</div>
+    		<div id="chat-input">
+       			<input type="text" id="message-input" placeholder="Enter your message...">
+       			<button id="send-button">Ask</button>
+   			</div>
+		</div>
+   </div>
+
+<script>
+    // Get input element
+    let input = document.getElementById("message-input");
+    
+    // If no user id in localStorage, generate a new one
+    if (localStorage.getItem("userId") === null) {
+        var userId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        localStorage.setItem("userId", userId);
+    }
+
+    // Listen for keypress event
+    input.addEventListener("keyup", function(event) {
+        // Check if "Enter" was pressed without holding "Shift"
+        if (event.key === "Enter") {
+            // Prevent default action
+            event.preventDefault();
+            // Click the send button
+            document.getElementById("send-button").click();
+        }
+    });
+
+    document.querySelector("#send-button").addEventListener("click", function() {
+        var inputField = document.querySelector("#message-input");
+        var message = inputField.value;
+        inputField.value = "";
+    
+        // Show user message
+        var chatBox = document.querySelector("#chat-box");
+        var userElement = document.createElement("div");
+        userElement.className = "user-message";
+        var userText = document.createElement("span");
+        userText.innerText = message;
+        userElement.appendChild(userText);
+        chatBox.appendChild(userElement);
+    
+        fetch("/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "prompt": message,
+                "user_id": localStorage.getItem("userId") // Add user_id to the body of the POST request
+            })
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            var responseElement = document.createElement("div");
+            responseElement.className = "bot-message";
+            var botText = document.createElement("span");
+            botText.innerText = data.response;
+            responseElement.appendChild(botText);
+            chatBox.appendChild(responseElement);
+        });
+    });
+
+	// Delete the history once the user close the website
+	window.onbeforeunload = function() {
+        $.post("/clear_history", {user_id: localStorage.getItem("userId")}, function(data) {
+            // Do something with the response if you want
+        });
+    }
+
+</script>
+
+</body>
+</html>
+

@@ -4,6 +4,9 @@ A web application to identify prognostic signatures and generate reports automat
 ## Introduction
 MulMarker is a comprehensive framework to identify a multigenic prognostic signature for cancer outcome prediction and patient stratification. The tool integrates the GPT's API to automatically interpret the results and evaluate whether candidate genes can work as a prognosis signature. The other highlight is that users can directly ask questions about the input, algorithms, and analysis process of the tool.
 
+## WorkFlow
+![1690528765637](https://github.com/Tina9/MulMarker/assets/16876314/94779cf3-145d-4392-b9ac-d891dd63b558)
+
 ## Requirements
 MulMarker randomly divided patients into train and test groups. First, it employs univariate Cox regression analysis to screen candidate genes and uses multivariate Cox regression analysis to build the risk model with patients in the train group. KM survival analysis and log-rank test are used to evaluate the performance of the prognosis marker. Next, the patients in the test and total groups are used to validate the performance of the risk model. Mulmarker will explain the result and evaluate the possibility of the candidate genes as a prognosis biomarker automatically. To use MulMarker, required files and parameters are listed as follows:
 

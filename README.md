@@ -1,14 +1,13 @@
 # MulMarker
-A web application to identify prognostic signatures and generate reports automatically. The platform can be accessed at https://mulmarker.azurewebsites.net/.
+A framework for identifying potential multi-gene prognostic signatures. The web application can be accessed at https://mulmarker.azurewebsites.net/.
 
 ## Introduction
-MulMarker is a comprehensive framework to identify a multigenic prognostic signature for cancer outcome prediction and patient stratification. The tool integrates the GPT's API to automatically interpret the results and evaluate whether candidate genes can work as a prognosis signature. The other highlight is that users can directly ask questions about the input, algorithms, and analysis process of the tool.
+MulMarker is a comprehensive framework for identifying potential multi-gene prognostic signatures across various diseases. MulMarker comprises three core modules: a GPT-driven chatbot for addressing user queries, a module for identifying multi-gene prognostic signatures, and a module for generating tailored reports.
 
-## WorkFlow
 ![Figure1](https://github.com/Tina9/MulMarker/assets/16876314/d079408a-da5e-4915-8ca8-2a0773c85a19)
 
 ## Requirements
-MulMarker randomly divided patients into train and test groups. First, it employs univariate Cox regression analysis to screen candidate genes and uses multivariate Cox regression analysis to build the risk model with patients in the train group. KM survival analysis and log-rank test are used to evaluate the performance of the prognosis marker. Next, the patients in the test and total groups are used to validate the performance of the risk model. Mulmarker will explain the result and evaluate the possibility of the candidate genes as a prognosis biomarker automatically. To use MulMarker, required files and parameters are listed as follows:
+MulMarker randomly divides patients into training and test groups. In the training group, it first employs univariate regression analysis to screen genes and then constructs a risk model using multivariate regression analysis. The combination of the identified genes is considered to be a potential prognostic signature. A KM survival analysis and a log-rank test are used to evaluate the performance of the prognosis signature. Next, the signature is evaluated in the test group and total dataset using KM survival analysis and log-rank test. Finally, MulMarker generates a report based on the analysis results to explain the findings. To use MulMarker, required files and parameters are listed as follows:
 
 1) Analysis Name (string): Input the name of your analysis, such as "LungCancer".
 
@@ -16,7 +15,7 @@ MulMarker randomly divided patients into train and test groups. First, it employ
 
 3) Clinical Patients (.txt): A txt file with clinical information. There are three columns: "PATIENT_ID", "OS_STATUS" and "OS_TIME". Patients in the file should be the same as the patients in Expression Data, such as "MulMarker/test/clinical_info.txt".
 
-4) Expression Data (.txt): A txt file with RNA expression data. Each row corresponds to a gene and each column corresponds to a patient, such as "MulMarker/test/rna_info.txt".
+4) Quantified Data (.txt): A txt file for transcriptomic and proteomic data. Each row corresponds to a gene and each column corresponds to a patient, such as "MulMarker/test/rna_info.txt".
 
 5) Seed Number (number): Patients will be randomly divided into train group and test group when training the model. This parameter is the seed number of random grouping. We recommend you to adjust the paramneter to get a better risk model, such as "12".
 

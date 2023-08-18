@@ -19,7 +19,7 @@ MulMarker randomly divides patients into training and test groups. In the traini
 
 5) Seed Number (number): Patients will be randomly divided into train group and test group when training the model. This parameter is the seed number of random grouping. We recommend you to adjust the paramneter to get a better risk model, such as "12".
 
-6) Ratio (number): The ratio of train group and test group, such as "0.5".
+6) Ratio (number): The ratio between train group and test group, such as "0.5".
 
 ## Results
 #### To submit data and Q&A

@@ -22,10 +22,10 @@ MulMarker randomly divides patients into training and test groups. In the traini
 6) Ratio (number): The ratio of train group and test group, such as "0.5".
 
 ## Results
-#### The web page to submit data and Q&A
-![84345654c5a7aae195953578d0d452a](https://github.com/Tina9/RiskModel/assets/16876314/9b2f59cb-6ea2-4ef8-b742-9c5fe0d7cba3)
+#### To submit data and Q&A
+![1692358944276](https://github.com/Tina9/MulMarker/assets/16876314/e075caf8-c00d-46ec-8ffc-22a5d3e7b5b5)
 
-#### The web page to show and explain the result
+#### To present and explain the result
 ![4bbe1295aa896a00820a726016a757c](https://github.com/Tina9/RiskModel/assets/16876314/3bff5652-b790-4635-b2c3-e7031dcee57f)
 
 

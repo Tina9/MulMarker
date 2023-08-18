@@ -9,8 +9,6 @@ system_prompt = config.Qprompt
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 
-print(system_prompt)
-
 def chat(user_id, prompt):
     # Try to get past conversation history from Redis
     conversation_history = r.get(user_id)
